@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+<!-- Modifies buffStatusCheck01, a buff that checks for updating effects every second. -->
+    <append xpath="/buffs/buff[@name='buffStatusCheck01']">
+
+    <!-- ### SOUL DESTRUCTION INCREMENT ### Applies Soul Destruction value of 1000 upon death -->
+        <effect_group name="Soul Destruction">
+            <triggered_effect trigger="onSelfEnteredGame" action="ModifyCVar" cvar="$SoulDestruction" operation="set" value="0"/>
+            <triggered_effect trigger="onSelfEnteredGame" action="ModifyCVar" cvar="$DestructionHealthPenalty" operation="set" value="0"/>
+            <triggered_effect trigger="onSelfEnteredGame" action="ModifyCVar" cvar="$DestructionStaminaPenalty" operation="set" value="0"/>
+            <triggered_effect trigger="onSelfEnteredGame" action="ModifyCVar" cvar="$DestructionCarryPenalty" operation="set" value="0"/>
+            <triggered_effect trigger="onSelfEnteredGame" action="ModifyCVar" cvar="$DestructionBarterPenalty" operation="set" value="0"/>
+            <triggered_effect trigger="onSelfEnteredGame" action="ModifyCVar" cvar="$DestructionEXPPenalty" operation="set" value="0"/>
+            <triggered_effect trigger="onSelfDied" action="ModifyCVar" cvar="$SoulDestruction" operation="add" value="1000"/>
+            <triggered_effect trigger="onSelfDied" action="LogMessage" target="self" message="1000 Destruction applied."/>
+        </effect_group>
+
+    <!-- ### APPLY DEATH BECOMES YOU BUFF ### -->
+        <effect_group name="Apply Death Becomes You">
+            <triggered_effect trigger="onSelfBuffUpdate" action="AddBuff" buff="buffDeathBecomesYou">
+                <requirement name="CVarCompare" cvar="$SoulDestruction" operation="GT" value="0"/>
+            </triggered_effect>
+        </effect_group>
+
+    <!-- ### SOUL MENDING BUFF TRIGGER ### -->
+        <effect_group name="Soul Mending">
+            <triggered_effect trigger="onSelfBuffUpdate" action="AddBuff" buff="buffSoulMending">
+                <requirement name="CVarCompare" cvar="$SoulDestruction" operation="GT" value="0"/>
+            </triggered_effect>
+        </effect_group>
+
+    <!-- ### BUFF REMOVAL ### Ensure removal of Soul Mending and Death Becomes You when destruction is 0 -->
+        <effect_group name="Remove Buffs">
+            <triggered_effect trigger="onSelfBuffUpdate" action="RemoveBuff" buff="buffSoulMending">
+                <requirement name="CVarCompare" cvar="$SoulDestruction" operation="LTE" value="0"/>
+            </triggered_effect>
+            <triggered_effect trigger="onSelfBuffUpdate" action="RemoveBuff" buff="buffDeathBecomesYou">
+                <requirement name="CVarCompare" cvar="$SoulDestruction" operation="LTE" value="0"/>
+            </triggered_effect>
+        </effect_group>
+    </append>
+
+<!-- Buff Definitions -->
+    <append xpath="/buffs">
+    <!-- Unified DBY Buff -->
+        <buff name="buffDeathBecomesYou" hidden="false" name_key="buffDeathBecomesYou" description_key="buffDeathBecomesYouDesc" tooltip_key="You're feeling weaker. Rest by a fire." icon="ui_game_symbol_near_death_trauma" icon_color="255,255,255" showonhud="true">
+            <stack_type value="ignore"/>
+            <duration value="0"/>
+            <display_value value="$SoulDestruction"/>
+            <display_value_format value="time"/>
+        <!-- ◈◈◈ HEALTH PENALTY SCALING ◈◈◈ -->
+            <effect_group name="Scale Health Penalty">
+                <requirement name="CVarCompare" cvar="$SoulDestruction" operation="GT" value="0"/>
+                <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$DestructionHealthPenalty" operation="set" value="@$SoulDestruction"/>
+                <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$DestructionHealthPenalty" operation="divide" value="150"/>
+                <passive_effect name="HealthMaxBlockage" operation="base_add" value="@$DestructionHealthPenalty"/>
+            </effect_group>
+
+        <!-- ◈◈◈ STAMINA PENALTY SCALING ◈◈◈ -->
+            <effect_group name="Scale Stamina Penalty">
+                <requirement name="CVarCompare" cvar="$SoulDestruction" operation="GT" value="1000"/>
+                <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$DestructionStaminaPenalty" operation="set" value="@$SoulDestruction"/>
+                <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$DestructionStaminaPenalty" operation="divide" value="170"/>
+                <passive_effect name="StaminaMaxBlockage" operation="base_add" value="@$DestructionStaminaPenalty"/>
+            </effect_group>
+
+        <!-- ◈◈◈ CARRY CAPACITY PENALTY SCALING ◈◈◈ -->
+            <effect_group name="Scale Carry Penalty">
+                <requirement name="CVarCompare" cvar="$SoulDestruction" operation="GT" value="2000"/>
+                <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$DestructionCarryPenalty" operation="set" value="@$SoulDestruction"/>
+                <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$DestructionCarryPenalty" operation="divide" value="1000"/>
+                <passive_effect name="CarryCapacity" operation="base_subtract" value="@$DestructionCarryPenalty"/>
+            </effect_group>
+
+        <!-- ◈◈◈ BARTERING PENALTY SCALING ◈◈◈ -->
+            <effect_group name="Scale Bartering Penalty">
+                <requirement name="CVarCompare" cvar="$SoulDestruction" operation="GT" value="4000"/>
+                <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$DestructionBarterPenalty" operation="set" value="@$SoulDestruction"/>
+                <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$DestructionBarterPenalty" operation="divide" value="200"/>
+                <passive_effect name="BarteringBuying" operation="perc_subtract" value="@$DestructionBarterPenalty"/>
+                <passive_effect name="BarteringSelling" operation="perc_subtract" value="@$DestructionBarterPenalty"/>
+            </effect_group>
+
+        <!-- ◈◈◈ XP GAIN PENALTY SCALING ◈◈◈ -->
+            <effect_group name="Scale EXP Penalty">
+                <requirement name="CVarCompare" cvar="$SoulDestruction" operation="GT" value="6000"/>
+                <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$DestructionEXPPenalty" operation="set" value="@$SoulDestruction"/>
+                <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$DestructionEXPPenalty" operation="divide" value="235"/>
+                <passive_effect name="PlayerExpGain" operation="perc_subtract" value="@$DestructionEXPPenalty"/>
+            </effect_group>
+
+
+        </buff>
+
+    <!-- Soul Mending -->
+        <buff name="buffSoulMending" name_key="buffSoulMending" description_key="buffSoulMendingDesc" icon="ui_game_symbol_twitch_resurrect" icon_color="144,144,100" hidden="true" remove_on_death="false">
+            <stack_type value="duration"/>
+            <duration value="0"/>
+            <update_rate value="1"/>
+            <effect_group name="Soul Mending">
+                <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$SoulDestruction" operation="subtract" value="1">
+                    <requirement name="CVarCompare" cvar="$SoulDestruction" operation="GT" value="0"/>
+                </triggered_effect>
+            </effect_group>
+            <effect_group name="Soul Mending Accelerated">
+                <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$SoulDestruction" operation="subtract" value="12">
+                    <requirement name="HasBuff" buff="buffCampfireAOEEffect"/>
+                    <requirement name="CVarCompare" cvar="$SoulDestruction" operation="GT" value="0"/>
+                </triggered_effect>
+            </effect_group>
+        </buff>
+    </append>
+</configs>

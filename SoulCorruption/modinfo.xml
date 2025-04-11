@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<xml>
+    <Name value="Soul_Destruction" />
+    <DisplayName value="Soul Destruction" />
+    <Description value="Overhauls the death system" />
+    <Author value="Fox" />
+    <Version value="0.1" />
+    <Website value="" />
+</xml>

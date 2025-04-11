@@ -1,0 +1,8 @@
+Key,File,Type,UsedInMainMenu,NoTranslate,english,Context / Alternate Text
+buffDeathBecomesYou,buffs,Buff,,x,Death Becomes You,
+buffDeathBecomesYouDesc,buffs,Buff,,x,You died. You'll face increasing penalties until you recover by a campfire.,
+buffDeathBecomesYouTootip,buffs,Buff,,x,Stand by the campfire.,
+buffSoulMending,buffs,Buff,,x,Soul Mending,
+buffSoulMendingDesc,buff,Buff,,x,Healing your corruption.
+buffSoulMendingTooltip,buff,Buff,,x,That... feels kinda nice.,
+penaltySoulDestruction,ui_display,Item stat,,,Healing /s,,Heilung/Sek.,Sanación/s,Guérison/s,Guarigione al secondo,回復/秒,치유/초,Leczenie / sek.,Cura por segundo,Лечение / с,İyileşme/sn.,治疗量/秒,療傷 / 秒
