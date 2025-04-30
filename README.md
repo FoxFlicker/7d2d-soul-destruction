@@ -8,33 +8,36 @@ This is a small XML mod for *7 Days to Die* that introduces a scalable, stat-bas
 - XP Gain
 - Bartering Effectiveness
 
-This is intended to provide consequence to the death system other than a massive XP loss. It isn't a fully fleshed out system, but it helps prevents players from dying to clear their debuffs or restore their vitals.
+This is intended to provide consequence to the death system other than a massive XP loss. It isn't a fully fleshed out system, but it gives an alternate option of consequence for death and can be brutal if left ignored.
+
+## Updates
+04/29/2025
+Fixed bugs. Added a boons system at high levels of destruction. Added more methods of reducing destruction levels.
 
 ## 💡 Overview
 
 - Each player death increases **Soul Destruction** by 1000.
 - While Soul Destruction is active, a debuff called `Death Becomes You` is applied.
 - Over time, Soul Destruction slowly decays (faster when near a campfire).
-- All penalties scale dynamically based on your current corruption level.
+- All penalties scale dynamically based on your current destruction level.
 
-> ⚠️ This mod doesn't show the exact debuff effects in-game, as it was originally built for private use.
+> ⚠️ Typing 'buff sd' into the console will show your current buff and debuff amounts.
 
 ## 📦 Status
 
 - ✔️ Fully working
 - ⚠️ Lightly tested
 - ❌ No in-game UI for debuff descriptions
-- 🧪 Not balanced for public gameplay (yet)
+- 🧪 Very lightly balanced, but you'll want to tweak the numbers for public gameplay.
 
 ## 📥 Usage
 
 Feel free to use, tweak, or build on it however you like.  
-No credit necessary—but a shoutout is always appreciated. 😉
+No credit necessary, but you know... if you want to I won't object. 😉
 
 ## 🛠️ Future Ideas (if you’re into tweaking mods):
 
-- Add scaling **bonuses** (movement speed, damage) at high destruction levels
-- Hook into `perk books` or `progression` to offset corruption decay
+- Hook into `perk books` or `progression` to offset Destruction decay
 - Integrate with in-game UI elements or quests for visibility
 
 ---
