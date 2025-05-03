@@ -8,6 +8,8 @@ This is a small XML mod for *7 Days to Die* that introduces a scalable, stat-bas
 - XP Gain
 - Bartering Effectiveness
 
+- At higher levels of destruction, it provides boosts to melee, attack speed, and eventually damage resistance.
+
 This is intended to provide consequence to the death system other than a massive XP loss. It isn't a fully fleshed out system, but it gives an alternate option of consequence for death and can be brutal if left ignored.
 
 ## Updates
@@ -25,9 +27,9 @@ Fixed bugs. Added a boons system at high levels of destruction. Added more metho
 
 ## 📦 Status
 
-- ✔️ Fully working
+- ✔️ Working
 - ⚠️ Lightly tested
-- ❌ No in-game UI for debuff descriptions
+- ❌ No in-game UI for debuff descriptions, but a console code can be ran to determine current stat effects. 'buff sd'
 - 🧪 Very lightly balanced, but you'll want to tweak the numbers for public gameplay.
 
 ## 📥 Usage
@@ -39,6 +41,10 @@ No credit necessary, but you know... if you want to I won't object. 😉
 
 - Hook into `perk books` or `progression` to offset Destruction decay
 - Integrate with in-game UI elements or quests for visibility
+
+## Install
+Drop in the mods folder.
+Turn your server's death penalty settings off. Or keep them on if you hate yourself and your friends.
 
 ---
 
