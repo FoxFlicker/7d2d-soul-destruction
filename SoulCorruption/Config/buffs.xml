@@ -178,16 +178,17 @@
                     <requirement name="CVarCompare" cvar="$SoulDestruction" operation="GT" value="0"/>
                 </triggered_effect>
             </effect_group>
-            <effect_group name="Soul Mending on Kill">
+            <!-- <effect_group name="Soul Mending on Kill">
                 <triggered_effect trigger="onSelfKillOther" action="ModifyCVar" cvar="$SoulDestruction" operation="subtract" value="15">
                     <requirement name="CVarCompare" cvar="$SoulDestruction" operation="GT" value="0"/>
                 </triggered_effect>
-            </effect_group>
+            </effect_group> -->
             <effect_group name="Soul Mending - Pumpkin Cheesecake">
                 <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$SoulDestruction" operation="subtract" value="34">
                     <requirement name="HasBuff" buff="buffPumpkinCheesecake"/>
                     <requirement name="CVarCompare" cvar="$SoulDestruction" operation="GT" value="0"/>
                 </triggered_effect>
+            </effect_group>
             <effect_group name="Soul Mending - Preacher Bonus">
                 <triggered_effect trigger="onSelfBuffUpdate" action="ModifyCVar" cvar="$SoulDestruction" operation="subtract" value="1">
                     <requirement name="HasBuff" buff="buffPreacherSetBonus"/>
